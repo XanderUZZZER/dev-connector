@@ -1,4 +1,5 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
@@ -46,4 +47,4 @@ Experience.propTypes = {
   deleteExperience: PropTypes.func.isRequired
 }
 
-export default connect(null, { deleteExperience })(Experience);
+export default connect(null, { deleteExperience })(withRouter(Experience));
