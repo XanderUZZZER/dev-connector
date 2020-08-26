@@ -7,6 +7,7 @@ const config = require('config');
 
 const User = require('../../models/User');
 const Profile = require('../../models/Profile');
+const Post = require('../../models/Post');
 
 // @route   GET api/profile/me
 // @desc    Get current user's prifile
@@ -139,8 +140,8 @@ router.get('/user/:user_id', auth, async (req, res) => {
 // @access  private
 router.delete('/', auth, async (req, res) => {
   try {
-    // @todo - remove users posts
-
+    // Remove user posts
+    await Post.deleteMany({ user: req.user.id });
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
     // Remove user
@@ -206,7 +207,7 @@ router.put('/experience',
 // @route   DELETE api/profile/experience/:exp_id
 // @desc    Delete profile experience
 // @access  private
-router.put('/experience/:exp_id', auth, async (req, res) => {
+router.delete('/experience/:exp_id', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
@@ -277,7 +278,7 @@ router.put('/education',
 // @route   DELETE api/profile/education/:exp_id
 // @desc    Delete profile education
 // @access  private
-router.put('/education/:edu_id', auth, async (req, res) => {
+router.delete('/education/:edu_id', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
