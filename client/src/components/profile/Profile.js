@@ -13,7 +13,9 @@ import ProfileGithub from './ProfileGithub'
 const Profile = ({ getProfileById, profile: { profile, loading }, auth, match }) => {
   useEffect(() => {
     getProfileById(match.params.id)
-  }, [getProfileById, match.params.id])
+    //eslint-disable-next-line
+  }, [])
+  //}, [getProfileById, match.params.id])
   return (
     <Fragment>
       {profile === null || loading ? (<Spinner />) : (
