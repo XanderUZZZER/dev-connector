@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const checkObjectId = require('../../middleware/checkObjectId');
 const { check, validationResult } = require('express-validator');
 const request = require('request');
 const config = require('config');
+const normalize = require('normalize-url');
 
 const User = require('../../models/User');
 const Profile = require('../../models/Profile');
@@ -41,33 +43,32 @@ router.post('/', [
     return res.status(400).json({ errors: errors.array() });
   }
 
+  // destructure the request
   const {
-    company,
-    location,
     website,
-    bio,
     skills,
-    status,
-    githubUsername,
     youtube,
     twitter,
     instagram,
     linkedin,
-    facebook
+    facebook,
+    // spread the rest of the fields we don't need to check
+    ...rest
   } = req.body;
 
-  // Build profile object
-  const profileFields = {};
-  profileFields.user = req.user.id;
-  if (company) profileFields.company = company;
-  if (website) profileFields.website = website;
-  if (location) profileFields.location = location;
-  if (bio) profileFields.bio = bio;
-  if (status) profileFields.status = status;
-  if (githubUsername) profileFields.githubUsername = githubUsername;
-  if (skills) {
-    profileFields.skills = skills.split(',').map(skill => skill.trim());
-  }
+
+  // build a profile
+  const profileFields = {
+    user: req.user.id,
+    website:
+      website && website !== ''
+        ? normalize(website, { forceHttps: true })
+        : '',
+    skills: Array.isArray(skills)
+      ? skills
+      : skills.split(',').map((skill) => ' ' + skill.trim()),
+    ...rest
+  };
 
   // Build profile social object
   profileFields.social = {};
@@ -116,8 +117,8 @@ router.get('/', async (req, res) => {
 
 // @route   GET api/profile/user/:user_id
 // @desc    Get profile by user id
-// @access  private
-router.get('/user/:user_id', auth, async (req, res) => {
+// @access  Public
+router.get('/user/:user_id', checkObjectId('user_id'), async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']);
 

@@ -6,18 +6,18 @@ import { connect } from 'react-redux';
 
 const CreateProfile = ({ createProfile, history }) => {
   const [formData, setFormData] = useState({
-    company: 'company',
-    website: 'website',
-    location: 'location',
-    status: 'status',
+    company: '',
+    website: '',
+    location: '',
+    status: '',
     skills: '',
-    bio: 'bio',
-    githubusername: 'githubusername',
-    youtube: 'youtube',
-    twitter: 'twitter',
-    facebook: 'facebook',
-    linkedin: 'linkedin',
-    instagram: 'instagram'
+    bio: '',
+    githubusername: '',
+    youtube: '',
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    instagram: ''
   });
 
   const [dislaySocialInputs, toggleSocialInputs] = useState(false);

@@ -20,6 +20,9 @@ const ProfileItem = ({ profile: { user: { _id, name, avatar }, status, company, 
             <i className="fas fa-check"></i> {skill}
           </li>
         ))}
+        {skills.length > 4 && (
+          <li className='text-primary'> and more... </li>
+        )}
       </ul>
     </div>
   )

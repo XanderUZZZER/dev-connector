@@ -5,16 +5,18 @@ const ProfileAbout = ({ profile: {
   bio, skills, user: { name }
 } }) =>
   <div className="profile-about bg-light p-2">
-    {bio && (
+    {bio && bio !== '' && (
       <Fragment>
-        <h2 className="text-primary">{name.trim().split(' ')}'s Bio</h2>
+        {/* <h2 className="text-primary">{name.trim().split(' ')}'s Bio</h2> */}
+        <h2 className="text-primary">{name}'s Bio</h2>
+
         <p>
           {bio}
         </p>
+        <div className="line"></div>
       </Fragment>
     )}
 
-    <div className="line"></div>
     <h2 className="text-primary">Skill Set</h2>
     <div className="skills">
       {

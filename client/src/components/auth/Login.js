@@ -6,8 +6,8 @@ import { login } from '../../actions/auth';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    email: 'user1@gmail.com',
-    password: '151086'
+    email: '',
+    password: ''
   });
 
   const { email, password } = formData;
@@ -57,7 +57,7 @@ const Login = ({ login, isAuthenticated }) => {
         />
       </form>
       <p className="my-1">
-        Don't have an account? <Link to='/regitser'>Sign Up</Link>
+        Don't have an account? <Link to='/register'>Sign Up</Link>
       </p>
     </Fragment>
   )

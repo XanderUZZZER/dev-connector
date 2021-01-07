@@ -6,21 +6,21 @@ import { connect } from 'react-redux';
 
 const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
   const [formData, setFormData] = useState({
-    company: 'company',
-    website: 'website',
-    location: 'location',
-    status: 'status',
-    skills: 'skills',
-    bio: 'bio',
-    githubusername: 'githubusername',
-    youtube: 'youtube',
-    twitter: 'twitter',
-    facebook: 'facebook',
-    linkedin: 'linkedin',
-    instagram: 'instagram'
+    company: '',
+    website: '',
+    location: '',
+    status: '',
+    skills: '',
+    bio: '',
+    githubUsername: '',
+    youtube: '',
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    instagram: ''
   });
 
-  const [dislaySocialInputs, toggleSocialInputs] = useState(false);
+  const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   useEffect(() => {
     getCurrentProfile();
@@ -32,12 +32,12 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
       status: loading || !profile.status ? '' : profile.status,
       skills: loading || !profile.skills ? '' : profile.skills.join(','),
       bio: loading || !profile.bio ? '' : profile.bio,
-      githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
-      youtube: loading || !profile.youtube ? '' : profile.youtube,
-      twitter: loading || !profile.twitter ? '' : profile.twitter,
-      facebook: loading || !profile.facebook ? '' : profile.facebook,
-      linkedin: loading || !profile.linkedin ? '' : profile.linkedin,
-      instagram: loading || !profile.instagram ? '' : profile.instagram
+      githubUsername: loading || !profile.githubUsername ? '' : profile.githubUsername,
+      youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
+      twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
+      facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
+      linkedin: loading || !profile.social.linkedin ? '' : profile.social.linkedin,
+      instagram: loading || !profile.social.instagram ? '' : profile.social.instagram
     });
     //eslint-disable-next-line
   }, [loading, getCurrentProfile]);
@@ -49,7 +49,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
     status,
     skills,
     bio,
-    githubusername,
+    githubUsername,
     youtube,
     twitter,
     facebook,
@@ -60,7 +60,6 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
-    console.log('innn');
     e.preventDefault();
     createProfile(formData, history, true);
   }
@@ -111,8 +110,8 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
           <input
             type="text"
             placeholder="Github Username"
-            name="githubusername"
-            value={githubusername} onChange={(e) => onChange(e)}
+            name="githubUsername"
+            value={githubUsername} onChange={(e) => onChange(e)}
           />
           <small className="form-text">
             If you want your latest repos and a Github link, include your username</small>
@@ -124,13 +123,13 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
         </div>
 
         <div className="my-2">
-          <button type="button" className="btn btn-light" onClick={() => toggleSocialInputs(!dislaySocialInputs)}>
+          <button type="button" className="btn btn-light" onClick={() => toggleSocialInputs(!displaySocialInputs)}>
             Add Social Network Links
           </button>
           <span>Optional</span>
         </div>
 
-        {dislaySocialInputs && <Fragment>
+        {displaySocialInputs && <Fragment>
           <div className="form-group social-input">
             <i className="fab fa-twitter fa-2x"></i>
             <input type="text" placeholder="Twitter URL" name="twitter" value={twitter} onChange={(e) => onChange(e)} />

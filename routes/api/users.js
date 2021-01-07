@@ -34,7 +34,8 @@ router.post('/', [
       const avatar = gravatar.url(email, {
         size: '200',    // shorthand - s
         rating: 'pg',   // shorthand - r
-        default: 'mm'   // shorthand - d
+        //default: 'mm'   // shorthand - d
+        default: 'identicon' //: a geometric pattern based on an email hash
       });
 
       user = new User({

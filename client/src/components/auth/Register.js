@@ -7,10 +7,10 @@ import { register } from '../../actions/auth';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    name: 'user1',
-    email: 'user1@gmail.com',
-    password: '151086',
-    password2: '151086',
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
   });
 
   const { name, email, password, password2 } = formData;
