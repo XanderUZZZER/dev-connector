@@ -15,7 +15,7 @@ const initialState = {
   error: {}
 }
 
-export default function (state = initialState, action) {
+const profile = function (state = initialState, action) {
   switch (action.type) {
     case GET_PROFILE:
     case UPDATE_PROFILE:
@@ -53,3 +53,5 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+export default profile
